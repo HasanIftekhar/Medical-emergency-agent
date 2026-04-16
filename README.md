@@ -1,23 +1,47 @@
-# Medical Emergency Agent
+# Graph-RAG for Medical Emergency Triage
 
-This repository provides tools and interfaces for a Medical Emergency Agent, leveraging a property graph knowledge store (`kgstore`) and interactive Jupyter notebooks. The project enables users to interact with medical emergency data and visualize or analyze information through notebooks and a user interface (UI) that integrates with the property graph store.
+**Master's Thesis — University of Stavanger (Jan 2025 – June 2025)**  
+**In collaboration with Laerdal Medical, Norway**
 
-## Table of Contents
+> Presented at the *"Enabling Technologies in Birth & Time-Critical Emergencies"* international conference.
 
-- [Features](#features)
-- [Requirements](#requirements)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Property Graph Store: kgstore](#property-graph-store-kgstore)
-- [UI Configuration](#ui-configuration)
-- [Contributing](#contributing)
-- [License](#license)
+## Overview
 
-## Features
+This project benchmarks **RAG vs. Graph-RAG** on proprietary Norwegian emergency medical protocols (NIMN) to reduce hallucinations in clinical AI decision support. A property knowledge graph was built with LLM-based entity extraction and integrated into a multi-stage retrieval and validation pipeline.
 
-- Two main Jupyter notebooks for direct exploration and execution.
-- Property graph knowledge store (`kgstore`) for flexible data management.
-- UI integration to change the data source location to `kgstore`.
+**Graph-RAG outperformed standard RAG by 43%** on complex clinical queries (overall score: 4.3 vs. 3.0), with **75% retrieval precision** vs. 48% for vector-only RAG.
+
+## Key Results
+
+| Method | Retrieval Precision | Overall Score | 
+|--------|-------------------|---------------|
+| Vector-only RAG | 48% | 3.0 |
+| **Graph-RAG (Ours)** | **75%** | **4.3** |
+| Improvement | +56% | **+43%** |
+
+Outputs validated through a **multi-stage QA pipeline** using query rewriting and LLM-as-Judge scoring across accuracy, safety, clarity, and completeness.
+
+## System Architecture
+
+The pipeline integrates:
+- **Property Knowledge Graph** built from Norwegian emergency medical protocols (NIMN)
+- **LLM-based entity and relation extraction**
+- **Graph-RAG retrieval** combining structured graph traversal with vector search
+- **LLM-as-Judge evaluation** for multi-dimensional output scoring
+
+## Tech Stack
+
+- Python
+- LlamaIndex (graph store, property graph)
+- LLM pipelines (OpenAI / local models)
+- Knowledge Graph construction and querying
+- Jupyter Notebooks
+
+## Repository Structure
+
+- `Stand_alone_queries.ipynb` — standalone query testing against the knowledge graph
+- `experimental/` — early experiments, graph construction iterations, and ablation studies
+- `kgstore/` — property graph knowledge store
 
 ## Requirements
 
@@ -27,66 +51,29 @@ This repository provides tools and interfaces for a Medical Emergency Agent, lev
 
 ## Installation
 
-### 1. Install Poetry
-
-Poetry is a tool for dependency management and packaging in Python. To install Poetry, run:
-
 ```bash
-curl -sSL https://install.python-poetry.org | python3 -
-```
-
-Or, for pipx users:
-
-```bash
-pipx install poetry
-```
-
-Make sure to add Poetry to your PATH according to the install instructions output.
-
-### 2. Clone the Repository
-
-```bash
-git clone https://github.com/cyeedmaroof/Medical-emergency-agent.git
+# Clone the repository
+git clone https://github.com/HasanIftekhar/Medical-emergency-agent.git
 cd Medical-emergency-agent
-```
 
-### 3. Install Dependencies
-
-```bash
+# Install dependencies
 poetry install
-```
 
-This will create a virtual environment and install all necessary dependencies.
-
-### 4. Activate the Virtual Environment
-
-You can use Poetry's shell to activate the environment:
-
-```bash
+# Activate virtual environment
 poetry shell
-```
-
-Or, run commands directly with:
-
-```bash
-poetry run <command>
 ```
 
 ## Usage
 
-### Running the Jupyter Notebooks
+Run the notebooks directly:
 
-There are two main notebooks in this project:
+1. **`Stand_alone_queries.ipynb`** — query the knowledge graph with clinical questions
+2. **`experimental/`** — explore early graph construction and RAG comparison experiments
 
-1. **[Query with Call Transcripts Test](query_with_call_transcripts_test.ipynb)** 
+Open your browser and navigate to `localhost:[port]` to interact with the agent UI.
 
-2. **[Stand Alone Queries](Stand_alone_queries.ipynb)**
+## Research Context
 
-You can run them directly by pressing `run all cell`
+This work was conducted as part of an M.Sc. thesis at the University of Stavanger in partnership with Laerdal Medical. The dataset used (NIMN — Norwegian Index for Medical Emergency) is proprietary and not included in this repository.
 
-Then, open your browser and navigate to the `localhost:[port number]` to start interacting with the Medical Emergency Agent.
-
-
-## UI Configuration
-
-In the UI, you can change the data source location to `kgstore` to access and work with all available data. 
+*Original codebase co-developed with [@cyeedmaroof](https://github.com/cyeedmaroof).*
