@@ -39,9 +39,16 @@ The pipeline integrates:
 
 ## Repository Structure
 
-- `Stand_alone_queries.ipynb` — standalone query testing against the knowledge graph
-- `experimental/` — early experiments, graph construction iterations, and ablation studies
-- `kgstore/` — property graph knowledge store
+| Path | Description |
+|------|-------------|
+| `Stand_alone_queries.ipynb` | Standalone query testing against the knowledge graph |
+| `experimental/` | Early experiments, graph construction iterations, and ablation studies |
+| `kgstore/` | Production property graph knowledge store (full NIMN dataset) |
+| `kgstore_test_50/` | Reduced test knowledge store (50-document subset for development) |
+| `vectordata/` | Persisted vector embeddings for retrieval |
+| `lib/` | Frontend visualization libraries (vis.js, tom-select) for graph UI |
+| `src/` | Core source modules for the RAG and Graph-RAG pipeline |
+| `default__vector_store.json` | Default vector store index configuration |
 
 ## Requirements
 
